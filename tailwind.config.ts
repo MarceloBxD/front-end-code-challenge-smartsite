@@ -20,6 +20,12 @@ const config: Config = {
         red: "#dc0a17",
         green: "#2FC022",
       },
+      backgroundColor: {
+        yellow: "#FFB612",
+      },
+      width: {
+        button: "300px",
+      },
     },
   },
   plugins: [],
