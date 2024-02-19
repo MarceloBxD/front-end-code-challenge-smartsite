@@ -5,7 +5,7 @@ import { mandarotyItems } from "@/data/mandatoryItems";
 
 export const MandatoryItemsBox = () => {
   return (
-    <div className="mt-5  w-full flex gap-5">
+    <div className="flex mt-7 w-full gap-5">
       {mandarotyItems.map((item, index) => (
         <MandatoryItem key={index} item={item} />
       ))}
