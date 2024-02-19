@@ -1,5 +1,6 @@
 import { Header } from "@/components/Header/Header.component";
 import { MainTitleDescription } from "@/components/MainTitleDescription/MainTitleDescription.component";
+import { MandatoryItemsBox } from "@/components/MandatoryItemsBox/MandatoryItemsBox.component";
 import { SearchBox } from "@/components/SearchBox/SearchBox.component";
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
           description="O horário de funcionamento das nossas unidades está seguindo os decretos de cada município. Por isso, confira aqui se a sua unidade está aberta e as medidas de segurança que estamos seguindo."
         />
         <SearchBox />
+        <MandatoryItemsBox />
       </main>
     </>
   );
