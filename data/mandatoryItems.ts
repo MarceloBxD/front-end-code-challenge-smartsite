@@ -1,7 +1,18 @@
+import { StaticImageData } from "next/image";
+import recommendedMask from "../assets/images/recommended-mask.png";
+import requiredMask from "../assets/images/required-mask.png";
+import recommendedTowel from "../assets/images/recommended-towel.png";
+import requiredTowel from "../assets/images/required-towel.png";
+import forbiddenFountain from "../assets/images/forbidden-fountain.png";
+import partialFountain from "../assets/images/partial-fountain.png";
+import forbiddenLockerRoom from "../assets/images/forbidden-lockerroom.png";
+import partialLockerRoom from "../assets/images/partial-lockerroom.png";
+import requiredLockerRoom from "../assets/images/required-lockerroom.png";
+
 export type MandatoryItemProps = {
   name: string;
   descriptions: {
-    image: string;
+    image: StaticImageData | string;
     type: string;
   }[];
 };
@@ -11,11 +22,11 @@ export const mandarotyItems: MandatoryItemProps[] = [
     name: "Máscara",
     descriptions: [
       {
-        image: "https://www.google.com",
+        image: requiredMask,
         type: "Obrigatório",
       },
       {
-        image: "https://www.google.com",
+        image: recommendedMask,
         type: "Recomendado",
       },
     ],
@@ -24,11 +35,11 @@ export const mandarotyItems: MandatoryItemProps[] = [
     name: "Toalha",
     descriptions: [
       {
-        image: "https://www.google.com",
+        image: requiredTowel,
         type: "Obrigatório",
       },
       {
-        image: "https://www.google.com",
+        image: recommendedTowel,
         type: "Recomendado",
       },
     ],
@@ -37,11 +48,11 @@ export const mandarotyItems: MandatoryItemProps[] = [
     name: "Bebedouro",
     descriptions: [
       {
-        image: "https://www.google.com",
+        image: partialFountain,
         type: "Parcial",
       },
       {
-        image: "https://www.google.com",
+        image: forbiddenFountain,
         type: "Proibido",
       },
     ],
@@ -50,15 +61,15 @@ export const mandarotyItems: MandatoryItemProps[] = [
     name: "Vestiários",
     descriptions: [
       {
-        image: "https://www.google.com",
+        image: requiredLockerRoom,
         type: "Liberal",
       },
       {
-        image: "https://www.google.com",
+        image: partialLockerRoom,
         type: "Parcial",
       },
       {
-        image: "https://www.google.com",
+        image: forbiddenLockerRoom,
         type: "Fechado",
       },
     ],
