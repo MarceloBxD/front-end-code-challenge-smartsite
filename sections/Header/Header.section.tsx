@@ -1,11 +1,11 @@
 import React from "react";
-
-import Logo from "../../_material/images/logo.svg";
+import Image from "next/image";
+import logo from "../../assets/images/logosmart.png";
 
 export const Header = () => {
   return (
-    <header className="w-screen bg-black">
-      <img src={Logo} alt="Logo" className="w-24 h-24 mx-auto" />
+    <header className="w-screen p-2 bg-black">
+      <Image src={logo} alt="Logo" className="w-[320px] object-cover mx-auto" />
     </header>
   );
 };

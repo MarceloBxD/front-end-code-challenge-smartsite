@@ -54,7 +54,6 @@ export const SearchBox = () => {
 
   async function handleFindUnit() {
     if (showClosedUnits) {
-      console.log("show closed units");
       let response = await fetch(
         "https://test-frontend-developer.s3.amazonaws.com/data/locations.json"
       );
@@ -64,19 +63,15 @@ export const SearchBox = () => {
       return results;
     }
 
-    console.log("show open units");
     let response = await fetch(
       "https://test-frontend-developer.s3.amazonaws.com/data/locations.json"
     );
     let json = await response.json();
     // mostrar somente as unidades abertas
-    console.log(json.locations.filter((item: any) => item.opened === true));
     setResults(json.locations.filter((item: any) => item.opened === true));
+    console.log(json.locations.filter((item: any) => item.opened === true));
+    return results;
   }
-
-  useEffect(() => {
-    console.log(showClosedUnits);
-  }, [showClosedUnits]);
 
   return (
     <div className="p-5 border-2 border-light-grey flex flex-col">
