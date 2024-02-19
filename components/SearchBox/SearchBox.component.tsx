@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ClockIcon from "../../assets/icons/icon-hour.png";
 import { Button } from "../Button/Button.component";
@@ -9,23 +9,12 @@ type ButtonOptionsProps = {
   title: string;
   primary: boolean;
   type: "button" | "submit" | "reset";
+  onClick?: () => void;
 };
 
 export const SearchBox = () => {
-  const buttonOptions: ButtonOptionsProps[] = [
-    {
-      title: "Encontrar Unidade",
-      primary: true,
-      type: "submit",
-    },
-    {
-      title: "Limpar",
-      primary: false,
-      type: "reset",
-    },
-  ];
-
-  const [results, setResults] = useState(0);
+  const [showClosedUnits, setShowClosedUnits] = useState(true);
+  const [results, setResults] = useState([]);
   const [period, setPeriod] = useState([
     {
       name: "Manhã",
@@ -44,6 +33,51 @@ export const SearchBox = () => {
     },
   ]);
 
+  const buttonOptions: ButtonOptionsProps[] = [
+    {
+      title: "Encontrar Unidade",
+      primary: true,
+      type: "submit",
+      onClick: () => {
+        handleFindUnit();
+      },
+    },
+    {
+      title: "Limpar",
+      primary: false,
+      type: "reset",
+      onClick: () => {
+        setResults([]);
+      },
+    },
+  ];
+
+  async function handleFindUnit() {
+    if (showClosedUnits) {
+      console.log("show closed units");
+      let response = await fetch(
+        "https://test-frontend-developer.s3.amazonaws.com/data/locations.json"
+      );
+      let json = await response.json();
+      setResults(json.locations.filter((item: any) => item.title));
+      console.log(json.locations.filter((item: any) => item.title));
+      return results;
+    }
+
+    console.log("show open units");
+    let response = await fetch(
+      "https://test-frontend-developer.s3.amazonaws.com/data/locations.json"
+    );
+    let json = await response.json();
+    // mostrar somente as unidades abertas
+    console.log(json.locations.filter((item: any) => item.opened === true));
+    setResults(json.locations.filter((item: any) => item.opened === true));
+  }
+
+  useEffect(() => {
+    console.log(showClosedUnits);
+  }, [showClosedUnits]);
+
   return (
     <div className="p-5 border-2 border-light-grey flex flex-col">
       <div className="w-full items-start flex m-4">
@@ -60,7 +94,7 @@ export const SearchBox = () => {
           <div key={index} className="flex justify-between border-b-2 my-2">
             <div className="border-light-grey mt-2">
               <input
-                type="radio"
+                type="checkbox"
                 className="mr-2"
                 id={item.name}
                 name={item.name}
@@ -92,20 +126,25 @@ export const SearchBox = () => {
         <div>
           <input
             className="mr-2"
-            type="radio"
+            defaultChecked
+            type="checkbox"
             title="Exibir unidades fechadas"
+            value={showClosedUnits.toString()}
+            onChange={() => setShowClosedUnits(!showClosedUnits)}
           />
           <label htmlFor="closed-units" className="text-light-grey">
             Exibir unidades fechadas
           </label>
         </div>
         <p>
-          Resultado encontrados: <span className="font-bold">{results}</span>
+          Resultado encontrados:{" "}
+          <span className="font-bold">{results.length}</span>
         </p>
       </div>
       <div className="flex justify-center  my-4">
         {buttonOptions.map((button, index) => (
           <Button
+            onClick={button.onClick}
             primary={button.primary}
             key={index}
             title={button.title}

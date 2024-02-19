@@ -16,7 +16,6 @@ export default function Home() {
         <SearchBox />
         <MandatoryItemsBox />
       </main>
-      <Footer />
     </>
   );
 }
