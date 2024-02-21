@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import ClockIcon from "../../assets/icons/icon-hour.png";
 import { Button } from "../Button/Button.component";
+import { useApp } from "@/contexts/UserContext";
+import { toast } from "react-toastify";
 
 type ButtonOptionsProps = {
   title: string;
@@ -53,6 +55,11 @@ export const SearchBox = () => {
   ];
 
   async function handleFindUnit() {
+    if (!localStorage.getItem("fileSent")) {
+      toast.warn("Você precisa enviar um documento para continuar");
+      return;
+    }
+
     if (showClosedUnits) {
       let response = await fetch(
         "https://test-frontend-developer.s3.amazonaws.com/data/locations.json"
